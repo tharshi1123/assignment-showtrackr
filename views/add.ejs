@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <title>Show Trackr</title>
+
+  <meta charset="utf-8">
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style media="screen">
+body{
+  background-color:	#E6E6FA;
+}
+.active{
+  outline: 1px dashed black;
+}
+#ms{
+  color: green;
+  font-size: 18px;
+}
+#ba{
+  color: red;
+}
+</style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-default">
+<div class="container-fluid">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="#" style="background-color:#ffd500;">Show<b>Trackr</b></a>
+  </div>
+  <ul class="nav navbar-nav">
+
+    <li ><a href="./">Home</a></li>
+
+    <li class="active"><a href="/add" >Add</a></li>
+  </ul>
+  <ul class="nav navbar-nav navbar-right">
+    <% if(user){ %>
+      <li><a href="/profile">
+      <% if (user.twitter.username != null) { %>
+      <%= user.twitter.username %>
+      <% } else if (user.google.email != null) { %>
+      <%= user.google.email %>
+      <% } else if (user.facebook.name  != null)  { %>
+      <%= user.facebook.name  %>
+      <% } else { %>
+      <%= user.local.email %>
+      <% } %>
+      </a>
+      </li>
+      <li><a href="/logout"><i class="fa fa-sign-out"> Logout</a></i>
+<% } else{ %>
+    <li><a href="/login" > Login</a></li>
+    <li><a href="/signup">Sign Up</a></li>
+<% } %>
+  </ul>
+</div>
+</nav>
+
+<div class="container">
+    <div class="ng-scope">
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  <b>  ADD TV SHOW</b>
+
+
+                </div>
+                <div class="panel-body">
+                    <form name="myForm">
+                        <b> Name </b> <br>
+                        <input class="form-control" name="show" id="inputdefault" type="text"
+                               placeholder="Enter TV show name">
+                    </form>
+                    <div class="pop1" id="pop1"></div>
+
+                    <a style="margin-top:10px;margin-left:10px" class="btn btn-primary " href="#" role="button"
+                       onclick="return checkInp()">Add</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    function checkInp() {
+        var showName = document.forms["myForm"]["show"].value;
+        if (showName.match("^[a-zA-Z]")) {
+
+            //sending post data of show name
+            let xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("POST", "/addShow");
+            xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+            let showData = "show="+showName;
+            xmlhttp.send(showData);
+
+            document.getElementById("pop1").innerHTML = showName + " " + " has been Added";
+            document.getElementById("pop1").style.color = "green";
+        } else {
+            document.getElementById("pop1").innerHTML = "Invalid TV Show Name";
+            document.getElementById("pop1").style.color = "red";
+
+        }
+    }
+</script>
+</body>
+
+</html>

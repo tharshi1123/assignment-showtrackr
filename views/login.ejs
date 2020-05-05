@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="icon" href="http://iconshow.me/media/images/Mixed/small-n-flat-icon/png/512/movie-alt.png">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <style media="screen">
+        .head1{
+          background-color:#FFC300;;
+        }
+        body{
+          background-color:	#E6E6FA;
+        }
+        .panel{
+          margin:5% 35%;
+        }
+        .bold{
+          font-weight: bold;
+        }
+        .center{
+          text-align:center;
+        }
+        .form{
+          margin:10px 20px;
+        }
+        .active{
+          outline: 1px dashed black;
+        }
+        .inputWithIcon input{
+         padding-left: 40px;
+        }
+        .inputWithIcon{
+         position: relative;
+        }
+        .inputWithIcon i{
+         position: absolute;
+         left: 3px;
+         top: 22px;
+         padding: 9px 8px;
+         color: #666;
+         transition:  .3s;
+        }
+
+      </style>
+  </head>
+  <body>
+    <!-- Navbar start-->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid ">
+          <div class=" navbar-header ">
+            <a class="navbar-brand head1" href="#" style="background-color:#ffd500;">Show<b>Trackr</b></a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li class=""><a href="./">Home</a></li>
+            <li><a href="/add">Add</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="/login" > Login</a></li>
+            <li><a href="/signup"> Sign Up</a></li>
+          </ul>
+        </div>
+      </nav>
+      <!-- navbar end -->
+      <!-- box start -->
+        <div class="container center">
+          <div id="loginbox" class="panel panel-default ">
+            <h2 class="panel-body bold">Log in</h2>
+            <% if (message.length > 0) { %>
+                <div class="alert alert-danger"><%= message %></div>
+            <% } %>
+            <div class="">
+              <!-- <form class="form"id="loginform" action="/login" method="post"  role="form"> -->
+      <form id="loginform" action="/login" method="post"  role="form" class="form">
+                <div class="form-group inputWithIcon">
+                  <label for="email"></label>
+                  <input  id="login-username" type="text"  class="form-control"name="email"  value="" placeholder="Email"  id="email" required>
+
+                  <i class="fa fa-envelope fa-lg " aria-hidden="true"></i>
+                    <p id='result'></p>
+                </divs>
+                  <div class="inputWithIcon">
+                  <label for="pwd"></label>
+              <input id="login-password" type="password" class="form-control" name="password" placeholder="Password"  required>
+
+                  <i class="fa fa-lock fa-lg " aria-hidden="true"></i>
+                </div>
+                </div>
+      <!-- login button -->
+        <div class="">
+          <button id="btn-login" href="#" class="btn btn-block btn-success">Login</button>
+        </div>
+         <!-- login button end  -->
+        <br>
+        <div >
+          <p class="bold">Forgot your password? </p>Don't have an account yet?
+          <label class="bold"><a href="/signup">Sign up</a></label>
+        </p>
+        </div>
+         <!-- login button  -->
+        <!-- <div class="form-group">
+          <button type="button" class="btn btn-primary btn-block fa fa-facebook"  href="/auth/facebook">
+             Sign in with Facebook</button>
+          <button type="button" class="btn btn-danger btn-block fa fa-google-plus"href="/auth/google">Sign in with Google</button>
+          <a class="btn btn-block btn-social btn-twitter" href="/auth/twitter">
+            <span class="fa fa-twitter"></span> Sign in with Twitter
+          </a>
+        </div> -->
+      </form>
+      <a class="btn btn-block btn-social btn-facebook btn-primary " href="/auth/facebook">
+        <i class="fa fa-facebook"></i> Sign in with Facebook
+      </a>
+  <a class="btn btn-block btn-social btn-google btn-danger" href="/auth/google">
+    <span class="fa fa-google"></span> Sign in with Google
+  </a>
+
+    <a class="btn btn-block btn-social btn-twitter btn-info" href="/auth/twitter">
+      <span class="fa fa-twitter"></span> Sign in with Twitter
+    </a>
+      </form>
+         <!-- login button end  -->
+      </form>
+
+
+
+      </div>
+      </div>
+
+      </div>
+      <!-- box end -->
+
+       <!-- <script type="text/javascript">
+
+
+       var userData = [{userName:"kirrishz",userpassword:"1122"},{userName:"vithu",userpassword:"3344"},{userName:"piri",userpassword:"5566"},{userName:"vithurasan",userpassword:"vithu"}]
+
+       var message;
+
+       function check(form) {
+           for (i = 0; i < userData.length; i++) {
+               if (form.userid.value == userData[i].userName && form.pswrd.value == userData[i].userpassword) {
+                  message = "Login successful"
+                   break;
+               } else {
+                   message = "Login unsuccessful"
+
+               }
+
+           }
+           alert(message);
+       }
+
+
+
+       </script> -->
+  </body>
+</html>

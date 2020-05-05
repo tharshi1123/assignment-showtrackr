@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Show Trackr</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+    <style media="screen">
+        /* #vd{
+          width: 1150px;
+          height: 1200px;
+          margin-top: 20px;
+          margin-left: -50px;
+      } */
+        body {
+            background-color: #E6E6FA;
+        }
+
+        .pull-right {
+            float: right !important;
+        }
+
+        div {
+            display: block;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .panel-default > .panel-heading {
+            color: #444;
+            border-color: #cfd9db;
+            font-weight: 700;
+            font-size: 85%;
+            text-transform: uppercase;
+            background-color: #f6f6f6;
+        }
+
+        .panel {
+            margin-bottom: 20px;
+            background-color: #fff;
+            border: 1px solid transparent;
+            width: 1000px;
+            margin-left: 60px;
+        }
+
+        .container {
+            margin-right: auto;
+            margin-left: auto;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .jumbotron {
+            margin-top: -20px;
+            border-bottom: 1px solid #dae2e4;
+        }
+
+        .jumbotron {
+            padding: 16px;
+            margin-bottom: 16px;
+            background-color: #f4f6f8;
+        }
+
+        .btnbox {
+            padding-left: 14%;
+            padding-right: 12%;
+        }
+
+        .btn {
+            margin-bottom: 5px;
+        }
+
+        .search {
+            border: 000px;
+        }
+
+        .filterDiv {
+
+            display: none;
+        }
+
+        .btn {
+            border: 2px solid black;
+            outline:  none;
+            padding: 4px 7px;
+
+            cursor: pointer;
+        }
+
+        li {
+            display: inline-block;
+            list-style-type: none;
+        }
+        .active{
+          outline: 1px dashed black;
+        }
+
+        span {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" style="background-color:#ffd500;">Show<b>Trackr</b></a>
+        </div>
+        <ul class="nav navbar-nav">
+
+            <li class="active all"><a href="./">Home</a></li>
+
+            <li><a href="/add">Add</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <% if(user){ %>
+                <li><a href="/profile">
+                        <% if (user.twitter.username != null) { %>
+                            <%= user.twitter.username %>
+                        <% } else if (user.google.email != null) { %>
+                            <%= user.google.email %>
+                        <% } else if (user.facebook.name != null)  { %>
+                            <%= user.facebook.name %>
+                        <% } else { %>
+                            <%= user.local.email %>
+                        <% } %>
+                    </a>
+                </li>
+            <li><a href="/logout"><i class="fa fa-sign-out"> Logout</a></i>
+                <% } else{ %>
+            <li><a href="/login"> Login</a></li>
+            <li><a href="/signup"> Sign Up</a></li>
+            <% } %>
+        </ul>
+    </div>
+</nav>
+
+
+<div class="jumbotron">
+  <div class="container">
+
+    <center><label for="">
+            <ul class="alphabet " style="font-size:20px;"->
+                <li><span onclick="filterSelection('0-9')">0-9</span></li>&nbsp;
+                <li><span onclick="filterSelection('A')">A</span></li>&nbsp;
+                <li><span onclick="filterSelection('B')">B</span></li>&nbsp;
+                <li><span onclick="filterSelection('C')">C</span></li>&nbsp;
+                <li><span onclick="filterSelection('D,')">D</span></li>&nbsp;
+                <li><span onclick="filterSelection('E')">E</span></li>&nbsp;
+                <li><span onclick="filterSelection('F')">F</span></li>&nbsp;
+                <li><span onclick="filterSelection('G')">G</span></li>&nbsp;
+                <li><span onclick="filterSelection('H')">H</span></li>&nbsp;
+                <li><span onclick="filterSelection('I')">I</span></li>&nbsp;
+                <li><span onclick="filterSelection('J')">J</span></li>&nbsp;
+                <li><span onclick="filterSelection('K')">K</span></li>&nbsp;
+                <li><span onclick="filterSelection('L')">L</span></li>&nbsp;
+                <li><span onclick="filterSelection('M')">M</span></li>&nbsp;
+                <li><span onclick="filterSelection('N')">N</span></li>&nbsp;
+                <li><span onclick="filterSelection('O')">O </span></li>&nbsp;
+                <li><span onclick="filterSelection('P')">P </span></li>&nbsp;
+                <li><span onclick="filterSelection('Q')">Q </span></li>&nbsp;
+                <li><span onclick="filterSelection('R')">R </span></li>&nbsp;
+                <li><span onclick="filterSelection('S')">S </span></li>&nbsp;
+                <li><span onclick="filterSelection('T')">T </span></li>&nbsp;
+                <li><span onclick="filterSelection('U')">U </span></li>&nbsp;
+                <li><span onclick="filterSelection('V')">V </span></li>&nbsp;
+                <li><span onclick="filterSelection('W')">W </span></li>&nbsp;
+                <li><span onclick="filterSelection('X')">X </span></li>&nbsp;
+                <li><span onclick="filterSelection('Y')">Y </span></li>&nbsp;
+                <li><span onclick="filterSelection('Z')">Z </span></li>&nbsp;
+            </ul>
+        </label></center>
+
+
+    <div class="btnbox"  align="center" ,style="display: block; align:center;   margin-top: 30px;   margin-bottom:100px; margin-right:200px; margin-left:200px; "  text-align: "justify">
+         <button type="button" class="btn btn-sm" onclick="filterSelection('all')">Show All</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Action')">Action</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Adventure')">Adventure </button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Animation')">  Animation</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Childran')"> Childran</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Comedy')"> Comedy</button>
+          <button type="button" class="btn btn-sm" onclick="filterSelection('Crime')"> Crime</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Documentary')"> Documentary</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Drama')"> Drama</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Family')"> Family</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Fantasy')"> Fantasy</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Food')">Food</button>
+          <button type="button" class="btn btn-sm" onclick="filterSelection('Home And Gardens')"> Home And Garden</button>
+
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Horrer')">Horrer</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Mini-series')">Mini-series</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Mystrey')">  Mystrey</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('News')">  News</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Reality')">  Reality</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Romance')">  Romance</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Sci-Fi')">Sci-Fi</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Sport')">Sport</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Suspence')">Suspence</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Talk Show')">Talk Show</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Thriller')">Thriller</button>
+        <button type="button" class="btn btn-sm" onclick="filterSelection('Travel')">Travel</button>
+
+
+    </div>
+</div>
+</div>
+</div>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading"> TOP 12 SHOWS
+            <div class="pull-right">
+                <input class="search " type="text" placeholder="Search...">
+            </div>
+        </div>
+        <div class="panel-body">
+
+
+            <div class="col-md-3 filterDiv Adventure B">
+                <a id="295759"  onclick="getEpisodeDetails(this.id)">
+                    <img class="img-rounded"
+                         src="https://live.staticflickr.com/3341/3183618358_1ce69a3380_b.jpg"
+                         width="220px" height="342px">
+                </a>
+                <div class="text-center">
+                    <a id="295759"  style="color:black; font-weight:bold;" onclick="getEpisodeDetails(this.id)">Barlet Of America</a>
+                    <p class="text-muted ">Episodes: 48</p>
+                </div>
+            </div>
+            <div class="col-md-3 filterDiv Action T">
+                <a href="/showtrackr">
+                    <img class="img-rounded"
+                         src="https://upload.wikimedia.org/wikipedia/en/thumb/2/2d/The_Wire_-_Season_1.jpg/250px-The_Wire_-_Season_1.jpg"
+                          width="220px" height="342px">
+                </a>
+                <div class="text-center">
+                    <a href="/showtrackr"  style="color:black; font-weight:bold;">The Wire</a>
+                    <p class="text-muted ">Episodes: 50</p>
+                </div>
+
+            </div>
+            <div class="col-md-3 filterDiv Action B">
+                <a href="showtrackr.ejs">
+                    <img class="img-rounded"
+                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRzxEBjFaHiEENr0eWtl2R6yua6wZQhLCPgA0yP9ucUzfr93RT7&usqp=CAU"
+                          width="220px" height="342px">
+                </a>
+                <div class="text-center">
+                    <a href="/showtrackr"  style="color:black; font-weight:bold;">Breaking Bad</a>
+                    <p class="text-muted ">Episodes: 50</p>
+                </div>
+            </div>
+            <div class="col-md-3  filterDiv Children L">
+                <a href="/showtrackr">
+                    <img class="img-rounded"
+                         src="https://static.posters.cz/image/750/poster/looney-tunes-group-i13134.jpg"
+                          width="220px" height="342px">
+                </a>
+                <div class="text-center">
+                    <a href="/showtrackr" style="color:black; font-weight:bold;">Looney tunes</a>
+                    <p class="text-muted ">Episodes: 40</p>
+                </div>
+            </div>
+            <div class="col-md-3 filterDiv Horror H">
+                <a href="/showtrackr">
+                    <img class="img-rounded"
+                         src="https://i.pinimg.com/originals/2f/53/a5/2f53a5b7575de32a3b601649186bfbd6.jpg"
+                          width="220px" height="342px">
+                </a>
+                <div class="text-center">
+                    <a href="/showtrackr"  style="color:black; font-weight:bold;">House</a>
+                    <p class="text-muted ">Episodes: 50</p>
+                </div>
+            </div>
+            <div class="col-md-3 filterDiv Horror W">
+                <a href="/showtrackr">
+                    <img class="img-rounded"
+                         src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Walking_Dead_Season_3_Official_Poster.jpg/220px-Walking_Dead_Season_3_Official_Poster.jpg"
+                         width="220px" height="342px">
+                </a>
+                <div class="text-center">
+                    <a href="/showtrackr"  style="color:black; font-weight:bold;">Walking Dead</a>
+                    <p class="text-muted ">Episodes: 50</p>
+                </div>
+            </div>
+            <div class="col-md-3 filterDiv Horror D"><!--6th img-->
+                <a href="/showtrackr">
+                    <img class="img-rounded"
+                         src="https://images-na.ssl-images-amazon.com/images/I/91dJcrVoesL._RI_.jpg"
+                          width="220px" height="342px">
+                </a>
+                <div class="text-center">
+                    <a href="/showtrackr"  style="color:black; font-weight:bold;">Dead Like Me</a>
+                    <p class="text-muted ">Episodes: 50</p>
+                </div>
+            </div>
+            <div class="col-md-3 filterDiv Comedy D"><!--6th img-->
+                <a href="/showtrackr">
+                    <img class="img-rounded"
+                         src="https://cdn.shopify.com/s/files/1/0630/8509/products/pst3150ds_grande.jpeg?v=1467479241"
+                          width="220px" height="342px">
+                </a>
+                <div class="text-center">
+                    <a href="/showtrackr" style="color:black; font-weight:bold;">Dexter</a>
+                    <p class="text-muted ">Episodes: 50</p>
+                </div>
+            </div>
+            <div class="col-md-3 filterDiv Adventure G">
+                <a href="/showtrackr">
+                    <img class="img-rounded"
+                         src="https://cdn11.bigcommerce.com/s-b72t4x/images/stencil/1280x1280/products/24556/33921/PP32783__82409.1427845388.jpg?c=2"
+                          width="220px" height="342px">
+                </a>
+                <div class="text-center">
+                    <a href="/showtrackr"  style="color:black; font-weight:bold;">Game Of Thrones</a>
+                    <p class="text-muted ">Episodes: 50</p>
+                </div>
+            </div>
+            <div class="col-md-3 filterDiv Adventure T">
+                <a href="/showtrackr">
+                    <img class="img-rounded"
+                         src="https://tvguide1.cbsistatic.com/feed/1/992/thumbs/118568992_1300x1733.jpg"
+                          width="220px" height="342px">
+                </a>
+                <div class="text-center">
+                    <a href="/showtrackr"  style="color:black; font-weight:bold;">The Big Bang Theory</a>
+                    <p class="text-muted ">Episodes: 50</p>
+                </div>
+            </div>
+            <div class="col-md-3 filterDiv Horror T">
+                <a href="/showtrackr">
+                    <img class="img-rounded" src="https://m.media-amazon.com/images/M/MV5BMjM3NzQ5NDcxOF5BMl5BanBnXkFtZTgwNzM4MTQ5NTM@._V1_.jpg"  width="220px" height="342px">
+                </a>
+                <div class="text-center">
+                    <a href="/showtrackr"  style="color:black; font-weight:bold;">The Nun</a>
+                    <p class="text-muted ">Episodes: 50</p>
+                </div>
+            </div>
+
+            <div class="col-md-3 filterDiv Children S">
+                <a href="/showtrackr">
+                    <img class="img-rounded" src="https://static.posters.cz/image/750/poster/scooby-doo-i10227.jpg"  width="220px" height="342px">
+                </a>
+                <div class="text-center">
+                    <a href="/showtrackr"  style="color:black; font-weight:bold;">scooby-Doo</a>
+                    <p class="text-muted ">Episodes: 50</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <script>
+        //getEpisodeDetails
+        function getEpisodeDetails(id) {
+          console.log("this", id)
+            //send http request to our server
+            let xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", "/getEpisode/"+id);
+            xmlhttp.setRequestHeader("Accept", "application/json");
+            xmlhttp.send();
+
+            // capture response from our server
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    let response = JSON.parse(this.responseText);
+                   if(response.data){
+                       console.log("data", response.data);
+                   } else if(response.err){
+                       console.log("err", response.err)
+                   }
+
+                }
+            };
+        }
+
+            filterSelection("all")
+
+            function filterSelection(c) {
+                var x, i;
+                x = document.getElementsByClassName("filterDiv");
+                if (c == "all") c = "";
+                for (i = 0; i < x.length; i++) {
+                    w3RemoveClass(x[i], "show");
+                    if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+                }
+            }
+
+            function w3AddClass(element, name) {
+                var i, arr1, arr2;
+                arr1 = element.className.split(" ");
+                arr2 = name.split(" ");
+                for (i = 0; i < arr2.length; i++) {
+                    if (arr1.indexOf(arr2[i]) == -1) {
+                        element.className += " " + arr2[i];
+                    }
+                }
+            }
+
+            function w3RemoveClass(element, name) {
+                var i, arr1, arr2;
+                arr1 = element.className.split(" ");
+                arr2 = name.split(" ");
+                for (i = 0; i < arr2.length; i++) {
+                    while (arr1.indexOf(arr2[i]) > -1) {
+                        arr1.splice(arr1.indexOf(arr2[i]), 1);
+                    }
+                }
+                element.className = arr1.join(" ");
+            }
+
+            // Add active class to the current button (highlight it)
+            var btnContainer = document.getElementById("myBtnContainer");
+            var btns = btnContainer.getElementsByClassName("btn");
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].addEventListener("click", function () {
+                    var current = document.getElementsByClassName("active");
+                    current[0].className = current[0].className.replace(" active", "");
+                    this.className += " active";
+                });
+            }
+        </script>
+
+</body>
+</html>

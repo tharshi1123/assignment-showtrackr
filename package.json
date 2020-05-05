@@ -1,0 +1,39 @@
+{
+  "name": "tharshi03",
+  "version": "1.0.0",
+  "description": "Mongodb, nodejs, express e socketio",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "author": "tharshi",
+  "license": "ISC",
+  "engines": {
+    "node": "6.10.1"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.19.0",
+    "c": "^0.1.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.4",
+    "debug": "^4.1.1",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.6-alpha.6",
+    "express-session": "^1.17.0",
+    "fs": "0.0.1-security",
+    "mongodb": "^3.3.3",
+    "morgan": "^1.9.1",
+    "nodemon": "^2.0.3",
+    "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth": "^2.0.0",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.4",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {}
+}
